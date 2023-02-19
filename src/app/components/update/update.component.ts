@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { OrderControllerService } from 'api';
+import { EmailResponse, OrderControllerService } from 'api';
 
 @Component({
   selector: 'app-update',
@@ -9,29 +9,48 @@ import { OrderControllerService } from 'api';
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit {
-  id!: number;
   private sub: any;
-  form = new FormGroup({
-    ref: new FormControl(this.id),
-    passcode: new FormControl('')
-  });
-  result: string="";
-  constructor(private route: ActivatedRoute,private orderControllerService: OrderControllerService) { }
-  
+  form = new FormGroup({passcode: new FormControl('')});
+  id!: string;
+  isDone: boolean = false;
+  error: string = "";
+  isError: boolean = false;
+  result: EmailResponse = {
+    "email": "",
+    "state": ""
+  };
+  constructor(private route: ActivatedRoute, private orderControllerService: OrderControllerService) { }
+
   ngOnInit() {
+    this.isDone = false;
+    this.isError = false;
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id'];
-      this.form.value.ref= +params['id'];
+      this.id = params['id'];
     });
   }
 
-  onSubmit(){
-    const passcode=this.form.value.passcode;
-
-    this.orderControllerService.getUserQRCode1(
+  onSubmit() {
+    this.isDone = false;
+    this.isError = false;
+    this.orderControllerService.getStatus(
       this.form.value.passcode,
-      this.form.value.ref)
-      .subscribe((res:string)=>this.result=res.valueOf())
+      this.id)
+      .subscribe((res: EmailResponse) => {
+        if (res.email == null || res.state == null) {
+          this.isError = true;
+          this.isDone = false;
+          this.error = "Wrong passcode";
+        } else {
+          this.result.email = res.email;
+          this.result.state = res.state;
+          this.isDone = true;
+          this.isError = false;
+        }
+      }, () => {
+        this.error = "Technical error has occured";
+        this.isDone = false;
+        this.isError = true;
+      })
   }
 
 }

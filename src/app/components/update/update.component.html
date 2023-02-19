@@ -1,11 +1,25 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
-            <input type="text" id="id" class="fadeIn second" name="id" placeholder="Ref" formControlName="ref">
-            <input type="password" id="passcode" class="fadeIn third" name="passcode" placeholder="passcode" formControlName="passcode">
+            <input type="password" id="passcode" class="fadeIn third" name="passcode" placeholder="passcode"
+                formControlName="passcode">
             <input type="submit" class="fadeIn fourth" value="Send">
         </form>
+
+        <div class="alert alert-success" role="alert" *ngIf="isDone">
+            <div>
+                La notification de mises à jour du statut de la commande est envoyée
+            </div>
+            <div>
+                Email : {{result.email}}
+            </div>
+            <div>
+                Etat : {{result.state}}
+            </div>
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="isError">
+            {{error}}
+        </div>
     </div>
 </div>
-
-{{result}}

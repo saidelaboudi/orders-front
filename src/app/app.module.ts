@@ -10,6 +10,8 @@ import { ResultComponent } from './components/result/result.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiModule } from 'api';
+import { OrdersComponent } from './components/orders/orders.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { ApiModule } from 'api';
     OrderComponent,
     UpdateComponent,
     QrcodeComponent,
-    ResultComponent
+    ResultComponent,
+    OrdersComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

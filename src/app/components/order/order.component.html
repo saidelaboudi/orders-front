@@ -10,6 +10,12 @@
     </div>
 </div>
 
-<div *ngIf="image">
-    <img className="default-img" [src]="image" alt="#" width="500px" height="300px"/>4
+
+<div class="wrapper">
+    <div id="formContent">
+        <div *ngIf="image.length>0">
+            <img [src]="getImage()"/>
+        </div>        
+    </div>
 </div>
+

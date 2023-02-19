@@ -17,7 +17,9 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { EmailResponse } from '../model/emailResponse';
 import { Orders } from '../model/orders';
+import { Results } from '../model/results';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -58,24 +60,19 @@ export class OrderControllerService {
     /**
      * 
      * 
-     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getQRCode(body: string, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
-    public getQRCode(body: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
-    public getQRCode(body: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
-    public getQRCode(body: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling getQRCode.');
-        }
+    public getAllLists(observe?: 'body', reportProgress?: boolean): Observable<Array<Orders>>;
+    public getAllLists(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Orders>>>;
+    public getAllLists(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Orders>>>;
+    public getAllLists(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'image/jpeg'
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -84,16 +81,10 @@ export class OrderControllerService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
-            'application/json'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
 
-        return this.httpClient.request<Array<string>>('post',`${this.basePath}/barcodes/`,
+        return this.httpClient.request<Array<Orders>>('get',`${this.basePath}/v1/api/orders/allOrders`,
             {
-                body: body,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -109,20 +100,20 @@ export class OrderControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserQRCode(body: Orders, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
-    public getUserQRCode(body: Orders, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
-    public getUserQRCode(body: Orders, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
-    public getUserQRCode(body: Orders, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getResultQRCode(body: Orders, observe?: 'body', reportProgress?: boolean): Observable<Results>;
+    public getResultQRCode(body: Orders, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Results>>;
+    public getResultQRCode(body: Orders, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Results>>;
+    public getResultQRCode(body: Orders, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling getUserQRCode.');
+            throw new Error('Required parameter body was null or undefined when calling getResultQRCode.');
         }
 
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'image/jpeg'
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -138,7 +129,7 @@ export class OrderControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<Array<string>>('post',`${this.basePath}/barcodes/order`,
+        return this.httpClient.request<Results>('post',`${this.basePath}/v1/api/orders/save`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -157,17 +148,17 @@ export class OrderControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserQRCode1(passcode: string, orderId: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public getUserQRCode1(passcode: string, orderId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public getUserQRCode1(passcode: string, orderId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public getUserQRCode1(passcode: string, orderId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getStatus(passcode: string, orderId: string, observe?: 'body', reportProgress?: boolean): Observable<EmailResponse>;
+    public getStatus(passcode: string, orderId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EmailResponse>>;
+    public getStatus(passcode: string, orderId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EmailResponse>>;
+    public getStatus(passcode: string, orderId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (passcode === null || passcode === undefined) {
-            throw new Error('Required parameter passcode was null or undefined when calling getUserQRCode1.');
+            throw new Error('Required parameter passcode was null or undefined when calling getStatus.');
         }
 
         if (orderId === null || orderId === undefined) {
-            throw new Error('Required parameter orderId was null or undefined when calling getUserQRCode1.');
+            throw new Error('Required parameter orderId was null or undefined when calling getStatus.');
         }
 
         let headers = this.defaultHeaders;
@@ -185,7 +176,7 @@ export class OrderControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<string>('get',`${this.basePath}/barcodes/pass/${encodeURIComponent(String(passcode))}/orders/${encodeURIComponent(String(orderId))}`,
+        return this.httpClient.request<EmailResponse>('get',`${this.basePath}/v1/api/orders/pass/${encodeURIComponent(String(passcode))}/orders/${encodeURIComponent(String(orderId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -202,13 +193,13 @@ export class OrderControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readForm(file: Blob, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public readForm(file: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public readForm(file: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public readForm(file: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public readOrderForm(file: Blob, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public readOrderForm(file: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public readOrderForm(file: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public readOrderForm(file: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (file === null || file === undefined) {
-            throw new Error('Required parameter file was null or undefined when calling read.');
+            throw new Error('Required parameter file was null or undefined when calling readOrder.');
         }
 
         let headers = this.defaultHeaders;
@@ -245,68 +236,7 @@ export class OrderControllerService {
             formParams = formParams.append('file', <any>file) as any || formParams;
         }
 
-        return this.httpClient.request<string>('post',`${this.basePath}/barcodes/read`,
-            {
-                body: convertFormParamsToString ? formParams.toString() : formParams,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param file 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public readUserForm(file: Blob, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public readUserForm(file: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public readUserForm(file: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
-    public readUserForm(file: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (file === null || file === undefined) {
-            throw new Error('Required parameter file was null or undefined when calling readUser.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): void; };
-        let useForm = false;
-        let convertFormParamsToString = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (file !== undefined) {
-            formParams = formParams.append('file', <any>file) as any || formParams;
-        }
-
-        return this.httpClient.request<string>('post',`${this.basePath}/barcodes/order/read`,
+        return this.httpClient.request<string>('post',`${this.basePath}/v1/api/orders/read`,
             {
                 body: convertFormParamsToString ? formParams.toString() : formParams,
                 withCredentials: this.configuration.withCredentials,

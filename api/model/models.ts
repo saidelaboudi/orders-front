@@ -1,3 +1,4 @@
-export * from './barcodesReadBody';
-export * from './orderReadBody';
+export * from './emailResponse';
 export * from './orders';
+export * from './ordersReadBody';
+export * from './results';
