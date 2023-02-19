@@ -1,0 +1,11 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
+            <input type="text" id="id" class="fadeIn second" name="id" placeholder="Ref" formControlName="ref">
+            <input type="password" id="passcode" class="fadeIn third" name="passcode" placeholder="passcode" formControlName="passcode">
+            <input type="submit" class="fadeIn fourth" value="Send">
+        </form>
+    </div>
+</div>
+
+{{result}}

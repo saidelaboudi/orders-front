@@ -1,0 +1,15 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
+            <input type="text" id="orderNumber" class="fadeIn second" name="orderNumber"
+                placeholder="numero de commande" formControlName="orderNumber">
+            <input type="email" id="email" class="fadeIn second" name="email" placeholder="email" formControlName="email">
+            <input type="password" id="passcode" class="fadeIn third" name="passcode" placeholder="passcode" formControlName="passcode">
+            <input type="submit" class="fadeIn fourth" value="Send">
+        </form>
+    </div>
+</div>
+
+<div *ngIf="image">
+    <img className="default-img" [src]="image" alt="#" width="500px" height="300px"/>4
+</div>
