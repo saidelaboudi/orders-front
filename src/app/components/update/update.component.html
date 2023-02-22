@@ -1,8 +1,11 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
+            <select class="form-select fadeIn second" aria-label="Default select example" formControlName="state">
+                <option class="form-select fadeIn second" *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
+              </select>
             <input type="password" id="passcode" class="fadeIn third" name="passcode" placeholder="passcode"
-                formControlName="passcode">
+                formControlName="passcode" *ngIf="needPasscode">
             <input type="submit" class="fadeIn fourth" value="Send">
         </form>
 

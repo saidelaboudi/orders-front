@@ -1,11 +1,16 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
-            <input type="text" id="orderNumber" class="fadeIn second" name="orderNumber"
-                placeholder="numero de commande" formControlName="orderNumber">
+            <input type="text" id="orderNumber" class="fadeIn second" name="orderNumber" placeholder="Nom" formControlName="fullname">
             <input type="email" id="email" class="fadeIn second" name="email" placeholder="email" formControlName="email">
-            <input type="password" id="passcode" class="fadeIn third" name="passcode" placeholder="passcode" formControlName="passcode">
-            <input type="submit" class="fadeIn fourth" value="Send">
+            <input type="text" id="orderNumber" class="fadeIn second" name="orderNumber" placeholder="numero de commande" formControlName="orderNumber">
+            <input type="date" id="arrivalDate" class="fadeIn second" name="arrivalDate" placeholder="Date d'arrivée" formControlName="arrivalDate">
+            <input type="date" id="shippingDate" class="fadeIn second" name="shippingDate" placeholder="Date d'expédition" formControlName="shippingDate">
+            <select class="form-select fadeIn second" aria-label="Default select example" formControlName="state">
+                <option class="form-select fadeIn second" *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
+              </select>
+            <input type="password" id="passcode" class="fadeIn third" name="passcode" placeholder="passcode" formControlName="passcode" *ngIf="needPasscode">
+            <input type="submit" class="fadeIn fourth" value="Valider">
         </form>
     </div>
 </div>

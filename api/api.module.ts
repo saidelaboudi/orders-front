@@ -4,13 +4,15 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { OrderControllerService } from './api/orderController.service';
+import { StateControllerService } from './api/stateController.service';
 
 @NgModule({
   imports:      [],
   declarations: [],
   exports:      [],
   providers: [
-    OrderControllerService ]
+    OrderControllerService,
+    StateControllerService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<ApiModule> {

@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 import { EmailResponse } from '../model/emailResponse';
 import { Orders } from '../model/orders';
 import { Results } from '../model/results';
+import { UpdatePayload } from '../model/updatePayload';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -56,6 +57,46 @@ export class OrderControllerService {
         return false;
     }
 
+
+    /**
+     * 
+     * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public _delete(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public _delete(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public _delete(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public _delete(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling _delete.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('delete',`${this.basePath}/v1/api/orders/delete/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * 
@@ -143,22 +184,17 @@ export class OrderControllerService {
     /**
      * 
      * 
-     * @param passcode 
-     * @param orderId 
+     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getStatus(passcode: string, orderId: string, observe?: 'body', reportProgress?: boolean): Observable<EmailResponse>;
-    public getStatus(passcode: string, orderId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EmailResponse>>;
-    public getStatus(passcode: string, orderId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EmailResponse>>;
-    public getStatus(passcode: string, orderId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getStatus(body: UpdatePayload, observe?: 'body', reportProgress?: boolean): Observable<EmailResponse>;
+    public getStatus(body: UpdatePayload, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EmailResponse>>;
+    public getStatus(body: UpdatePayload, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EmailResponse>>;
+    public getStatus(body: UpdatePayload, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (passcode === null || passcode === undefined) {
-            throw new Error('Required parameter passcode was null or undefined when calling getStatus.');
-        }
-
-        if (orderId === null || orderId === undefined) {
-            throw new Error('Required parameter orderId was null or undefined when calling getStatus.');
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling getStatus.');
         }
 
         let headers = this.defaultHeaders;
@@ -174,10 +210,16 @@ export class OrderControllerService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json'
         ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        return this.httpClient.request<EmailResponse>('get',`${this.basePath}/v1/api/orders/pass/${encodeURIComponent(String(passcode))}/orders/${encodeURIComponent(String(orderId))}`,
+        return this.httpClient.request<EmailResponse>('post',`${this.basePath}/v1/api/orders/update`,
             {
+                body: body,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

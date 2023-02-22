@@ -2,18 +2,24 @@
     <thead>
         <tr>
             <th scope="col">Numéro de commande</th>
-            <th scope="col">Email</th>
+            <th scope="col">Nom</th>
             <th scope="col">Etat</th>
+            <th scope="col">Derniere modif</th>
+            <th scope="col">Email</th>
+            <th scope="col">Date arrivée</th>
+            <th scope="col">Date expédition</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let item of list">
             <td>{{item.orderNumber}}</td>
-            <td>{{item.email}}</td>
-            <td class="alert alert-primary" role="alert" *ngIf="item.state == 'Reception'">{{item.state}}</td>
-            <td class="alert alert-secondary" role="alert" *ngIf="item.state == 'Validation'">{{item.state}}</td>
-            <td class="alert alert-info" role="alert" *ngIf="item.state == 'préparation'">{{item.state}}</td>
-            <td class="alert alert-secondary" role="alert" *ngIf="item.state == 'Acheminement'">{{item.state}}</td>
+            <td>{{item.fullname}}</td>
+            <td >{{item.state!.etat}}</td>
+            <td >{{item.updatedAt}}</td>
+            <td >{{item.email}}</td>
+            <td >{{item.arrivalDate}}</td>
+            <td >{{item.shippingDate}}</td>
+            <button type="button" class="btn btn-danger" (click)="delete(item!.id!)">Supprimer</button>
         </tr>
     </tbody>
 </table>
