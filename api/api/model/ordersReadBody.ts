@@ -9,18 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Etats } from './etats';
 
-export interface Orders { 
-    id?: string;
-    fullname?: string;
-    email?: string;
-    orderNumber?: string;
-    arrivalDate?: Date;
-    shippingDate?: Date;
-    updatedAt?: Date;
-    comment?: string;
-    notify?: boolean;
-    state?: Etats;
-    emailBody?: string;
+export interface OrdersReadBody { 
+    file?: Blob;
 }

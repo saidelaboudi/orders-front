@@ -13,4 +13,6 @@
 export interface EmailResponse { 
     state?: string;
     email?: string;
+    notify?: boolean;
+    orderNumber?: string;
 }

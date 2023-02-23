@@ -25,7 +25,7 @@ export class OrdersComponent implements OnInit {
       this.list = res 
       this.isReady=true;
     });
-    this.updateSubscription = interval(120000).subscribe(
+    this.updateSubscription = interval(60000).subscribe(
       (val) => { 
         this.orderControllerService.getAllLists().subscribe((res: Array<Orders>) => { 
           this.list = res 
@@ -54,5 +54,8 @@ export class OrdersComponent implements OnInit {
     }else{
       return "rgb(255,255,255)";
     }
+  }
+  qrCode(id:string){
+    this.router.navigate(['/qrcode/'+id]);
   }
 }

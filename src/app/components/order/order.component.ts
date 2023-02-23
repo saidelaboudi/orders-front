@@ -17,7 +17,9 @@ export class OrderComponent implements OnInit {
     arrivalDate: new FormControl(''),
     shippingDate: new FormControl(''),
     state: new FormControl({}),
-    passcode: new FormControl('')
+    passcode: new FormControl(''),
+    comment: new FormControl(''),
+    notify: new FormControl('')
   });
   order: Orders = {
     "fullname":"",
@@ -50,6 +52,8 @@ export class OrderComponent implements OnInit {
     this.order.arrivalDate =this.form.value.arrivalDate;
     this.order.shippingDate =this.form.value.shippingDate;
     this.order.state =this.form.value.state;
+    this.order.notify =this.form.value.notify;
+    this.order.comment =this.form.value.comment;
     this.orderControllerService.getResultQRCode(this.order).subscribe((res:Results) => {
       this.result = res!
       this.image=res.image!

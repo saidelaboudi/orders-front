@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'result', component: ResultComponent  },
   { path: 'qrcode', component: QrcodeComponent  },
   { path: 'passcode', component: PasscodeComponent  },
+  { path: 'qrcode/:id', component: QrcodeComponent  },
 
 ];
 

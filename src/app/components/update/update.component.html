@@ -12,9 +12,14 @@
         <input type="submit" class="fadeIn fourth" value="Valider">
     </form>
 
-    <div class="alert alert-success" role="alert" *ngIf="isDone">
+    <div class="alert alert-success" role="alert" *ngIf="isDone && result.notify">
         <div>
-            Nous vous informons que l'état de la commande est passé à : {{result.state}} 
+            Nous vous informons que l'état de la commande {{result.orderNumber}}  est passé à : {{result.state}} 
+        </div>
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="isDone && !result.notify">
+        <div>
+            L'état de la commande {{result.orderNumber}}  est passé à : {{result.state}} 
         </div>
     </div>
 

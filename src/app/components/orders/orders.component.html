@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of list" [style.background-color]="getColor(item)">
-            <td>{{item.orderNumber}}</td>
+            <td (click)="qrCode(item!.id!)">{{item.orderNumber}}</td>
             <td>{{item.fullname}}</td>
             <td >{{item.state!.etat}}</td>
             <td >{{item.updatedAt}}</td>

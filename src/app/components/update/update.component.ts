@@ -19,7 +19,9 @@ export class UpdateComponent implements OnInit {
   isError: boolean = false;
   result: EmailResponse = {
     "email": "",
-    "state": ""
+    "state": "",
+    "notify": false,
+    "orderNumber": ""
   };
   needPasscode:boolean=true
   states: Array<Etats> = [];
@@ -56,6 +58,8 @@ export class UpdateComponent implements OnInit {
         } else {
           this.result.email = res.email;
           this.result.state = res.state;
+          this.result.notify = res.notify;
+          this.result.orderNumber = res.orderNumber;
           this.isDone = true;
           this.isError = false;
         }

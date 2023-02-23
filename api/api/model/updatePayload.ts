@@ -11,16 +11,7 @@
  */
 import { Etats } from './etats';
 
-export interface Orders { 
+export interface UpdatePayload { 
+    etats?: Etats;
     id?: string;
-    fullname?: string;
-    email?: string;
-    orderNumber?: string;
-    arrivalDate?: Date;
-    shippingDate?: Date;
-    updatedAt?: Date;
-    comment?: string;
-    notify?: boolean;
-    state?: Etats;
-    emailBody?: string;
 }

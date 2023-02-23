@@ -1,1 +1,7 @@
-<p>qrcode works!</p>
+<div class="wrapper">
+    <div id="formContent">
+        <div *ngIf="image.length>0">
+            <img [src]="getImage()" />
+        </div>
+    </div>
+</div>
