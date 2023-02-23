@@ -42,4 +42,17 @@ export class OrdersComponent implements OnInit {
       });
     });
   }
+  getColor(item:Orders){
+    if(item.state!.etat! == 'En cours de production'){
+      return "background-color : 	rgb(30,144,255)";
+    }else if(item.state!.etat! == 'Finition'){
+      return "background-color : rgb(255,165,0)";
+    }else if(item.state!.etat! == 'préparation'){
+      return "background-color : rgb(192,192,192)";
+    }else if(item.state!.etat! == 'Terminée'){
+      return "background-color : rgb(154,205,50)";
+    }else if(item.state!.etat! == 'Expédiée'){
+      return "";
+    }
+  }
 }

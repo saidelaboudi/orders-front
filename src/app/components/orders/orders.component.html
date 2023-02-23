@@ -10,14 +10,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of list">
+        <tr *ngFor="let item of list" [ngStyle]="getColor(item)">
             <td>{{item.orderNumber}}</td>
             <td>{{item.fullname}}</td>
-            <td style="background-color : 	rgb(30,144,255)"*ngIf="item.state!.etat! == 'En cours de production'">{{item.state!.etat}}</td>
-            <td style="background-color : rgb(255,165,0)" *ngIf="item.state!.etat! == 'Finition'">{{item.state!.etat}}</td>
-            <td style="background-color : rgb(192,192,192)" *ngIf="item.state!.etat! == 'préparation'">{{item.state!.etat}}</td>
-            <td style="background-color : rgb(154,205,50)" *ngIf="item.state!.etat! == 'Terminée'">{{item.state!.etat}}</td>
-            <td  *ngIf="item.state!.etat! == 'Expédiée'">{{item.state!.etat}}</td>
+            <td >{{item.state!.etat}}</td>
             <td >{{item.updatedAt}}</td>
             <td >{{item.arrivalDate}}</td>
             <td >{{item.shippingDate}}</td>
