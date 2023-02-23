@@ -53,7 +53,6 @@ export class OrderComponent implements OnInit {
     this.orderControllerService.getResultQRCode(this.order).subscribe((res:Results) => {
       this.result = res!
       this.image=res.image!
-      localStorage.setItem('passcode', JSON.stringify(this.form.value.passcode));
     }
     )
   }

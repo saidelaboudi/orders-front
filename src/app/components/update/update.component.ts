@@ -58,7 +58,6 @@ export class UpdateComponent implements OnInit {
           this.result.state = res.state;
           this.isDone = true;
           this.isError = false;
-          localStorage.setItem('passcode', JSON.stringify(this.form.value.passcode));
         }
       }, () => {
         this.error = "Technical error has occured";
