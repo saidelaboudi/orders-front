@@ -51,7 +51,7 @@ export class OrdersComponent implements OnInit {
       return "rgb(192,192,192)";
     }else if(item.state!.etat! == 'Terminée'){
       return "rgb(154,205,50)";
-    }else if(item.state!.etat! == 'Expédiée'){
+    }else{
       return "rgb(255,255,255)";
     }
   }

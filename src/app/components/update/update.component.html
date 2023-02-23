@@ -14,13 +14,10 @@
 
     <div class="alert alert-success" role="alert" *ngIf="isDone">
         <div>
-            La notification de mises à jour du statut de la commande est envoyée
+            Nous vous informons que l'état de la commande {{result.state}} est passé à :
         </div>
         <div>
-            Email : {{result.email}}
-        </div>
-        <div>
-            Etat : {{result.state}}
+            État de la commande : {{result.state}}
         </div>
     </div>
 
