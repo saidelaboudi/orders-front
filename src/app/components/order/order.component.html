@@ -1,6 +1,18 @@
+
+<div class="wrapper">
+    <div id="formContent">
+        <div *ngIf="image.length>0">
+            <img [src]="getImage()" />
+        </div>
+    </div>
+</div>
+
+
 <div class="container">
+    <h1>Création d'une commande</h1>
     <form class="form-horizontal" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form" >
         <div class="form-group">
+            <label for="email1" class="col-sm-2 control-label">Commande :</label>
             <div class="col-sm-5">
                 <input type="text" class="form-control inputstl" name="orderNumber" placeholder="numero de commande" formControlName="orderNumber">
             </div>
@@ -50,10 +62,3 @@
 </div>
 
 
-<div class="wrapper">
-    <div id="formContent">
-        <div *ngIf="image.length>0">
-            <img [src]="getImage()" />
-        </div>
-    </div>
-</div>
