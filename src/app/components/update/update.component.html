@@ -2,7 +2,7 @@
 
     <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
         <div class="form-group">
-            <label for="gender1" class="col-sm-2 control-label">Etat : </label>
+            <label for="gender1" class="col-sm-2 control-label">État de la commande : </label>
             <div class="col-sm-5">
                 <select class="form-control inputstl" id="email1" formControlName="state">
                     <option *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
@@ -14,10 +14,7 @@
 
     <div class="alert alert-success" role="alert" *ngIf="isDone">
         <div>
-            Nous vous informons que l'état de la commande {{result.state}} est passé à :
-        </div>
-        <div>
-            État de la commande : {{result.state}}
+            Nous vous informons que l'état de la commande {{result.state}} est passé à : {{result.email}}
         </div>
     </div>
 
