@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiModule } from 'api';
 import { OrdersComponent } from './components/orders/orders.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { PasscodeComponent } from './passcode/passcode.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     QrcodeComponent,
     ResultComponent,
     OrdersComponent,
-    NavbarComponent
+    NavbarComponent,
+    PasscodeComponent
   ],
   imports: [
     BrowserModule,

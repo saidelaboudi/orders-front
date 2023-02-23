@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { OrderControllerService } from './api/orderController.service';
+import { PasscodeControllerService } from './api/passcodeController.service';
 import { StateControllerService } from './api/stateController.service';
 
 @NgModule({
@@ -12,6 +13,7 @@ import { StateControllerService } from './api/stateController.service';
   exports:      [],
   providers: [
     OrderControllerService,
+    PasscodeControllerService,
     StateControllerService ]
 })
 export class ApiModule {

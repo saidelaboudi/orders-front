@@ -1,26 +1,59 @@
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
-            <input type="text" id="orderNumber" class="fadeIn second" name="orderNumber" placeholder="Nom" formControlName="fullname">
-            <input type="email" id="email" class="fadeIn second" name="email" placeholder="email" formControlName="email">
-            <input type="text" id="orderNumber" class="fadeIn second" name="orderNumber" placeholder="numero de commande" formControlName="orderNumber">
-            <input type="date" id="arrivalDate" class="fadeIn second" name="arrivalDate" placeholder="Date d'arrivée" formControlName="arrivalDate">
-            <input type="date" id="shippingDate" class="fadeIn second" name="shippingDate" placeholder="Date d'expédition" formControlName="shippingDate">
-            <select class="form-select fadeIn second" aria-label="Default select example" formControlName="state">
-                <option class="form-select fadeIn second" *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
-              </select>
-            <input type="password" id="passcode" class="fadeIn third" name="passcode" placeholder="passcode" formControlName="passcode" *ngIf="needPasscode">
-            <input type="submit" class="fadeIn fourth" value="Valider">
-        </form>
-    </div>
+<div class="container">
+    <form class="form-horizontal" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form" >
+        <div class="form-group">
+            <div class="col-sm-5">
+                <input type="text" class="form-control inputstl" name="orderNumber" placeholder="numero de commande" formControlName="orderNumber">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email1" class="col-sm-2 control-label">Client :</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control inputstl" id="email1" name="fullname" placeholder="Nom du client" formControlName="fullname">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address1" class="col-sm-2 control-label">Email:</label>
+            <div class="col-sm-5">
+                <input type="email" class="form-control inputstl" id="address1"name="email" placeholder="email" formControlName="email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="gender1" class="col-sm-2 control-label">Etat : </label>
+            <div class="col-sm-5">
+                <select class="form-control inputstl" id="email1" formControlName="state">
+                    <option *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address1" class="col-sm-2 control-label">Date de réception :</label>
+            <div class="col-sm-5">
+                <input type="date" class="form-control inputstl" id="address1" name="arrivalDate" placeholder="Date d'arrivée"
+                formControlName="arrivalDate">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address1" class="col-sm-2 control-label">Date de réception :</label>
+            <div class="col-sm-5">
+                <input type="date" class="form-control inputstl" id="address1" name="shippingDate"
+                placeholder="Date d'expédition" formControlName="shippingDate">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-4">
+                    <button type="submit" class="btn btn-lg btn-block btn-info">Valider</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 
 <div class="wrapper">
     <div id="formContent">
         <div *ngIf="image.length>0">
-            <img [src]="getImage()"/>
-        </div>        
+            <img [src]="getImage()" />
+        </div>
     </div>
 </div>
-

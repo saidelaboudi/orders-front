@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { Etats, OrderControllerService, Orders, Results, StateControllerService } from 'api';
 
 @Component({
@@ -31,16 +32,16 @@ export class OrderComponent implements OnInit {
   states: Array<Etats> = [];
   needPasscode:boolean=true;
   passcode: string='';
-  constructor(private orderControllerService: OrderControllerService, private sanitizer: DomSanitizer,private stateControllerService:StateControllerService) { }
+  constructor(private router: Router,private orderControllerService: OrderControllerService, private sanitizer: DomSanitizer,private stateControllerService:StateControllerService) { }
 
   ngOnInit(): void {
+    this.passcode=JSON.parse(localStorage.getItem('passcode') || '""')
+    if(this.passcode==""){
+      this.router.navigate(['/passcode']);
+    }
     this.stateControllerService.getAll().subscribe((etats:Array<Etats>)=>{
       this.states=etats;
     });
-    this.passcode=JSON.parse(localStorage.getItem('passcode') || '""')
-    if(this.passcode!=""){
-      this.needPasscode=false
-    }
   }
   onSubmit() {
     this.order.fullname = this.form.value.fullname;

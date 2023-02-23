@@ -12,7 +12,6 @@
 import { Etats } from './etats';
 
 export interface UpdatePayload { 
-    passcode?: string;
     etats?: Etats;
     id?: string;
 }

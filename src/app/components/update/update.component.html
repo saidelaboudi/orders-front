@@ -1,28 +1,27 @@
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
-            <select class="form-select fadeIn second" aria-label="Default select example" formControlName="state">
-                <option class="form-select fadeIn second" *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
-              </select>
-            <input type="password" id="passcode" class="fadeIn third" name="passcode" placeholder="passcode"
-                formControlName="passcode" *ngIf="needPasscode">
-            <input type="submit" class="fadeIn fourth" value="Send">
-        </form>
+<div class="container">
 
-        <div class="alert alert-success" role="alert" *ngIf="isDone">
-            <div>
-                La notification de mises à jour du statut de la commande est envoyée
-            </div>
-            <div>
-                Email : {{result.email}}
-            </div>
-            <div>
-                Etat : {{result.state}}
+    <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
+        <div class="form-group">
+            <label for="gender1" class="col-sm-2 control-label">Etat : </label>
+            <div class="col-sm-5">
+                <select class="form-control inputstl" id="email1" formControlName="state">
+                    <option *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
+                </select>
             </div>
         </div>
+        <input type="submit" class="fadeIn fourth" value="Valider">
+    </form>
 
-        <div class="alert alert-danger" role="alert" *ngIf="isError">
-            {{error}}
+    <div class="alert alert-success" role="alert" *ngIf="isDone">
+        <div>
+            La notification de mises à jour du statut de la commande est envoyée
+        </div>
+        <div>
+            Email : {{result.email}}
+        </div>
+        <div>
+            Etat : {{result.state}}
         </div>
     </div>
+
 </div>

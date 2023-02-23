@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrderControllerService, Orders } from 'api';
 import { interval, Subscription } from 'rxjs';
 
@@ -11,10 +12,15 @@ export class OrdersComponent implements OnInit {
   list!: Array<Orders>;
   isReady: boolean=false;
   private updateSubscription!: Subscription;
+  passcode: string="";
 
-  constructor(private orderControllerService: OrderControllerService) { }
+  constructor(private router: Router,private orderControllerService: OrderControllerService) { }
 
   ngOnInit(): void {
+    this.passcode=JSON.parse(localStorage.getItem('passcode') || '""')
+    if(this.passcode==""){
+      this.router.navigate(['/passcode']);
+    }
     this.orderControllerService.getAllLists().subscribe((res: Array<Orders>) => { 
       this.list = res 
       this.isReady=true;
