@@ -12,7 +12,8 @@ export class UpdateComponent implements OnInit {
   private sub: any;
   form = new FormGroup({
     state: new FormControl({}),
-    commentaire: new FormControl('')
+    commentaire: new FormControl(''),
+    notify: new FormControl(true)
   });
   id!: string;
   isDone: boolean = false;
@@ -28,6 +29,7 @@ export class UpdateComponent implements OnInit {
   states: Array<Etats> = [];
   passcode: string='';
   order!: Orders;
+  isRequired: boolean=false;
   constructor(private route: ActivatedRoute, private orderControllerService: OrderControllerService,private stateControllerService:StateControllerService,private router: Router) { }
 
   ngOnInit(): void {
@@ -50,26 +52,34 @@ export class UpdateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.order.state=this.form.value.state;
-    this.order.comment=this.form.value.commentaire;
     this.isDone = false;
     this.isError = false;
-    this.orderControllerService.getStatus(this.order)
-    .subscribe((res: EmailResponse) => {
-        if (res.email == null || res.state == null) {
-        } else {
-          this.result.email = res.email;
-          this.result.state = res.state;
-          this.result.notify = res.notify;
-          this.result.orderNumber = res.orderNumber;
-          this.isDone = true;
-          this.isError = false;
-        }
-      }, () => {
-        this.error = "Technical error has occured";
-        this.isDone = false;
-        this.isError = true;
-      })
+    if(Object.keys(this.form.value.state).length === 0){
+      this.isRequired=true
+    }else{
+      this.isRequired=false
+      this.order.state=this.form.value.state;
+      this.order.comment=this.form.value.commentaire;
+      this.order.notify =this.form.value.notify;
+      this.isDone = false;
+      this.isError = false;
+      this.orderControllerService.getStatus(this.order)
+      .subscribe((res: EmailResponse) => {
+          if (res.email == null || res.state == null) {
+          } else {
+            this.result.email = res.email;
+            this.result.state = res.state;
+            this.result.notify = res.notify;
+            this.result.orderNumber = res.orderNumber;
+            this.isDone = true;
+            this.isError = false;
+          }
+        }, () => {
+          this.error = "Technical error has occured";
+          this.isDone = false;
+          this.isError = true;
+        })
+    }
   }
 
 }

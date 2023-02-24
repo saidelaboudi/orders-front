@@ -12,19 +12,41 @@
         <div class="form-group">
             <label for="gender1" class="col-sm-2 control-label">État de la commande : </label>
             <div class="col-sm-5">
-                <select class="form-control inputstl" id="email1" formControlName="state" required>
+                <select class="form-control inputstl" formControlName="state" required>
                     <option *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
                 </select>
             </div>
         </div>
+        <div class="form-group">
+            <label for="address1" class="col-sm-2 control-label">Notifier par email ? </label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value=true formControlName="notify" checked>
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Oui
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value=false formControlName="notify">
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Non
+                </label>
+              </div>
+        </div>
         <input type="submit" class="fadeIn fourth" value="Valider">
     </form>
+
+    <div class="alert alert-danger" role="alert" *ngIf="isRequired">
+        <div>
+            Veuillez changer l'état de commande 
+        </div>
+    </div>
 
     <div class="alert alert-success" role="alert" *ngIf="isDone && result.notify">
         <div>
             Nous vous informons que l'état de la commande {{result.orderNumber}}  est passé à : {{result.state}} 
         </div>
     </div>
+
     <div class="alert alert-success" role="alert" *ngIf="isDone && !result.notify">
         <div>
             L'état de la commande {{result.orderNumber}}  est passé à : {{result.state}} 
