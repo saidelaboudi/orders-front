@@ -2,7 +2,7 @@
 
     <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" name="form" [formGroup]="form">
         <div class="form-group">
-            <label for="exampleFormControlTextarea1" *ngIf="order.comment">Commentaire utilisateur : </label>
+            <label for="exampleFormControlTextarea1" *ngIf="order.comment">Ancien commentaire : </label>
             {{order.comment}}
         </div>
         <div class="form-group">
