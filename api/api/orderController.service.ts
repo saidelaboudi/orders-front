@@ -20,7 +20,6 @@ import { Observable }                                        from 'rxjs';
 import { EmailResponse } from '../model/emailResponse';
 import { Orders } from '../model/orders';
 import { Results } from '../model/results';
-import { UpdatePayload } from '../model/updatePayload';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -89,6 +88,47 @@ export class OrderControllerService {
         ];
 
         return this.httpClient.request<any>('delete',`${this.basePath}/v1/api/orders/delete/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findById(id: string, observe?: 'body', reportProgress?: boolean): Observable<Orders>;
+    public findById(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Orders>>;
+    public findById(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Orders>>;
+    public findById(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling findById.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Orders>('get',`${this.basePath}/v1/api/orders/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -229,10 +269,10 @@ export class OrderControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getStatus(body: UpdatePayload, observe?: 'body', reportProgress?: boolean): Observable<EmailResponse>;
-    public getStatus(body: UpdatePayload, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EmailResponse>>;
-    public getStatus(body: UpdatePayload, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EmailResponse>>;
-    public getStatus(body: UpdatePayload, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getStatus(body: Orders, observe?: 'body', reportProgress?: boolean): Observable<EmailResponse>;
+    public getStatus(body: Orders, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EmailResponse>>;
+    public getStatus(body: Orders, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EmailResponse>>;
+    public getStatus(body: Orders, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling getStatus.');

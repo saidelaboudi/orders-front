@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EmailResponse, Etats, OrderControllerService, StateControllerService, UpdatePayload } from 'api';
+import { EmailResponse, Etats, OrderControllerService, Orders, StateControllerService } from 'api';
 
 @Component({
   selector: 'app-update',
@@ -11,7 +11,8 @@ import { EmailResponse, Etats, OrderControllerService, StateControllerService, U
 export class UpdateComponent implements OnInit {
   private sub: any;
   form = new FormGroup({
-    state: new FormControl({})
+    state: new FormControl({}),
+    commentaire: new FormControl('')
   });
   id!: string;
   isDone: boolean = false;
@@ -25,15 +26,14 @@ export class UpdateComponent implements OnInit {
   };
   needPasscode:boolean=true
   states: Array<Etats> = [];
-  updatePayload:UpdatePayload={}
   passcode: string='';
+  order!: Orders;
   constructor(private route: ActivatedRoute, private orderControllerService: OrderControllerService,private stateControllerService:StateControllerService,private router: Router) { }
 
   ngOnInit(): void {
     this.passcode=JSON.parse(localStorage.getItem('passcode') || '""')
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.updatePayload.id=params['id'];
       localStorage.setItem('id', JSON.stringify(this.id));
     });
     if(this.passcode==""){
@@ -41,6 +41,7 @@ export class UpdateComponent implements OnInit {
     }else{
       localStorage.setItem('id', '');
     }
+    this.orderControllerService.findById(this.id).subscribe((res:Orders)=>{this.order=res;})
     this.stateControllerService.getAll().subscribe((etats:Array<Etats>)=>{
       this.states=etats;
     });
@@ -49,10 +50,11 @@ export class UpdateComponent implements OnInit {
   }
 
   onSubmit() {
+    this.order.state=this.form.value.state;
+    this.order.comment=this.form.value.commentaire;
     this.isDone = false;
     this.isError = false;
-    this.updatePayload.etats=this.form.value.state;
-    this.orderControllerService.getStatus(this.updatePayload)
+    this.orderControllerService.getStatus(this.order)
     .subscribe((res: EmailResponse) => {
         if (res.email == null || res.state == null) {
         } else {
