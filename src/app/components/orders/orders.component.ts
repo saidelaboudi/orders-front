@@ -47,7 +47,7 @@ export class OrdersComponent implements OnInit {
       return "rgb(30,144,255)";
     }else if(item.state!.etat! == 'Finition'){
       return "rgb(255,165,0)";
-    }else if(item.state!.etat! == 'préparation'){
+    }else if(item.state!.etat! == 'Préparation'){
       return "rgb(192,192,192)";
     }else if(item.state!.etat! == 'Terminée'){
       return "rgb(154,205,50)";
