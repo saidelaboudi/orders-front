@@ -14,9 +14,9 @@
             <td (click)="qrCode(item!.id!)">{{item.orderNumber}}</td>
             <td>{{item.fullname}}</td>
             <td >{{item.state!.etat}}</td>
-            <td >{{item.updatedAt}}</td>
-            <td >{{item.arrivalDate}}</td>
-            <td >{{item.shippingDate}}</td>
+            <td >{{item.updatedAt| date:'dd/MM/yyyy'}}</td>
+            <td >{{item.arrivalDate | date:'dd/MM/yyyy'}}</td>
+            <td >{{item.shippingDate | date:'dd/MM/yyyy'}}</td>
             <button type="button" class="btn btn-danger" (click)="delete(item!.id!)">Supprimer</button>
         </tr>
     </tbody>

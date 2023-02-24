@@ -14,25 +14,25 @@
         <div class="form-group">
             <label for="email1" class="col-sm-2 control-label">Numéro de commande :</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control inputstl" name="orderNumber" placeholder="Numéro de commande" formControlName="orderNumber">
+                <input type="text" class="form-control inputstl" name="orderNumber" placeholder="Numéro de commande" formControlName="orderNumber" required>
             </div>
         </div>
         <div class="form-group">
             <label for="email1" class="col-sm-2 control-label">Client :</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control inputstl" id="email1" name="fullname" placeholder="Nom du client" formControlName="fullname">
+                <input type="text" class="form-control inputstl" id="email1" name="fullname" placeholder="Nom du client" formControlName="fullname" required>
             </div>
         </div>
         <div class="form-group">
             <label for="address1" class="col-sm-2 control-label">Email:</label>
             <div class="col-sm-5">
-                <input type="email" class="form-control inputstl" id="address1"name="email" placeholder="email" formControlName="email">
+                <input type="email" class="form-control inputstl" id="address1"name="email" placeholder="email" formControlName="email" required>
             </div>
         </div>
         <div class="form-group">
             <label for="gender1" class="col-sm-2 control-label">Etat : </label>
             <div class="col-sm-5">
-                <select class="form-control inputstl" id="email1" formControlName="state">
+                <select class="form-control inputstl" id="email1" formControlName="state" required>
                     <option *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
                 </select>
             </div>
@@ -41,14 +41,14 @@
             <label for="address1" class="col-sm-2 control-label">Date de réception :</label>
             <div class="col-sm-5">
                 <input type="date" class="form-control inputstl" id="address1" name="arrivalDate" placeholder="Date d'arrivée"
-                formControlName="arrivalDate" datetime="dd-MM-yyyy">
+                formControlName="arrivalDate" required>
             </div>
         </div>
         <div class="form-group">
             <label for="address1" class="col-sm-2 control-label">Date d'expédition :</label>
             <div class="col-sm-5">
                 <input type="date" class="form-control inputstl" id="address1" name="shippingDate"
-                placeholder="Date d'expédition" formControlName="shippingDate" datetime="dd-MM-yyyy">
+                placeholder="Date d'expédition" formControlName="shippingDate" required>
             </div>
         </div>
         <div class="form-group">
