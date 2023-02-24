@@ -12,7 +12,7 @@
         <div class="form-group">
             <label for="gender1" class="col-sm-2 control-label">État de la commande : </label>
             <div class="col-sm-5">
-                <select class="form-control inputstl" id="email1" formControlName="state">
+                <select class="form-control inputstl" id="email1" formControlName="state" required>
                     <option *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
                 </select>
             </div>
