@@ -5,9 +5,9 @@
             <th scope="col">Client</th>
             <th scope="col">Etat</th>
             <th scope="col">Dernière modif</th>
+            <th scope="col">Commentaire</th>
             <th scope="col">Date de réception</th>
             <th scope="col">Date d'expédition</th>
-            <th scope="col">Commentaire</th>
         </tr>
     </thead>
     <tbody>
@@ -16,9 +16,9 @@
             <td>{{item.fullname}}</td>
             <td >{{item.state!.etat}}</td>
             <td >{{item.updatedAt| date:'dd/MM/yyyy'}}</td>
+            <td >{{item.comment}}</td>
             <td >{{item.arrivalDate | date:'dd/MM/yyyy'}}</td>
             <td >{{item.shippingDate | date:'dd/MM/yyyy'}}</td>
-            <td >{{item.comment}}</td>
             <button type="button" class="btn btn-danger" (click)="delete(item!.id!)">Supprimer</button>
         </tr>
     </tbody>
