@@ -46,11 +46,13 @@ export class OrdersComponent implements OnInit {
     if(item.state!.etat! == 'En cours de production'){
       return "rgb(30,144,255)";
     }else if(item.state!.etat! == 'Finition'){
-      return "rgb(255,165,0)";
+      return "rgb(138,43,226)";
     }else if(item.state!.etat! == 'Préparation'){
       return "rgb(192,192,192)";
     }else if(item.state!.etat! == 'Terminée'){
       return "rgb(154,205,50)";
+    }else if(item.state!.etat! == 'En attente'){
+      return "rgb(255,255,0)";
     }else{
       return "rgb(255,255,255)";
     }

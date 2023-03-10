@@ -57,6 +57,7 @@ export class OrderComponent implements OnInit {
     this.orderControllerService.getResultQRCode(this.order).subscribe((res:Results) => {
       this.result = res!
       this.image=res.image!
+      confirm("La commande à été créée")
     }
     )
   }
