@@ -33,7 +33,7 @@
             <label for="gender1" class="col-sm-2 control-label">Etat : </label>
             <div class="col-sm-5">
                 <select class="form-control inputstl" id="email1" formControlName="state" required>
-                    <option *ngFor="let state of states" [ngValue]="state">{{state.etat}}</option>
+                    <option *ngFor="let state of states" [ngValue]="state" [selected]="state.etat === 'En attente' ">{{state.etat}}</option>
                 </select>
             </div>
         </div>
